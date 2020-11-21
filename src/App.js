@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from "react";
+import 'mini.css';
 
-function App() {
+const App = () => {
+  const [pinStates, setPinStates] = useState([]);
+
+  useEffect(() => {
+    fetch('http://192.168.1.22:1224/state')
+      .then(response => response.json())
+      .then(data => setPinStates(data));
+  }, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header >
+        <h1>Christmas-light controller</h1>
       </header>
+
+      <section>
+
+      </section>
+
     </div>
   );
 }
