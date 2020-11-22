@@ -1,29 +1,21 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import PinItem from "./pinItem";
+import {List, ListSubheader} from "@material-ui/core";
 
-const PinTable = (props: any) => {
-
+const PinList = (props: any) => {
 
     return (
-        <table>
-            <thead>
-            <tr>
-                <th>Pin#</th>
-                <th>State</th>
-            </tr>
-            </thead>
-            <tbody>
-            {props.pins.map((pin: any) =>
-                <PinItem state={pin.HIGH} pinNo={pin.pinNo} key={pin.pinNo}/>
-            )}
+        <List subheader={<ListSubheader>Settings</ListSubheader>} className={"test"}>
+            {
+                props.pins.map((pin: any) => {
+                    return <PinItem pin={pin} key={pin.pinNo}/>
+                })
+            }
 
-
-            </tbody>
-        </table>
-
+        </List>
 
     );
 
 }
 
-export default PinTable;
+export default PinList;
