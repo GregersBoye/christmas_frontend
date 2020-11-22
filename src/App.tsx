@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import 'mini.css';
+
 
 const App = () => {
   const [pinStates, setPinStates] = useState([]);
