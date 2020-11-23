@@ -3,9 +3,9 @@ import {ListItemIcon, ListItemSecondaryAction, ListItemText, Switch} from "@mate
 import ListItem from "@material-ui/core/ListItem";
 import PinModel from "../models/pinModel";
 
-const PinItem = (props: { pin: PinModel }) => {
-    const [checked, setChecked] = useState<boolean>(props.pin.HIGH);
-    const pinText :string = `Pin #${props.pin.pinNumber}`;
+const PinItem = ({pin}: { pin: PinModel }) => {
+    const [checked, setChecked] = useState<boolean>(pin.HIGH);
+    const pinText :string = `Pin #${pin.pinNumber}: ${pin.name}`;
 
     const toggleChecked = () => {
         setChecked((oldState:boolean) => !oldState )

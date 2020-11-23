@@ -13,7 +13,7 @@ const App = () => {
     fetch('http://192.168.1.22:1224/state')
       .then(response => response.json())
       .then((data) => {
-          const newData = data.map((dataPoint:any) => new PinModel(dataPoint));
+          const newData = data.map((dataPoint: {HIGH: string; pinNo: number, name: string}) => new PinModel(dataPoint));
           setPinStates(newData)
       });
   }, [])
