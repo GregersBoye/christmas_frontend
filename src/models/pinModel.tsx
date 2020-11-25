@@ -8,6 +8,10 @@ class PinModel{
         this.pinNumber = pinNo;
         this.name = name;
     }
+
+    pinNumberString(): string{
+        return this.pinNumber < 10 ? `00${this.pinNumber}` : `0${this.pinNumber.toString()}`;
+    }
 }
 
 export default PinModel;

@@ -1,14 +1,17 @@
-import React, {useState} from "react";
+import React, { useState} from "react";
 import {ListItemIcon, ListItemSecondaryAction, ListItemText, Switch} from "@material-ui/core";
 import ListItem from "@material-ui/core/ListItem";
 import PinModel from "../models/pinModel";
 
-const PinItem = ({pin}: { pin: PinModel }) => {
-    const [checked, setChecked] = useState<boolean>(pin.HIGH);
-    const pinText :string = `Pin #${pin.pinNumber}: ${pin.name}`;
+const PinItem = ({pin, onChange}: { pin: PinModel, onChange: Function }) => {
+    const [high, setHigh] = useState(pin.HIGH);
+
+    const pinText :string = `Pin #${pin.pinNumberString()}: ${pin.name}`;
 
     const toggleChecked = () => {
-        setChecked((oldState:boolean) => !oldState )
+        pin.HIGH = !pin.HIGH;
+        setHigh(pin.HIGH);
+        onChange(pin);
     }
 
     return <ListItem>
@@ -20,7 +23,7 @@ const PinItem = ({pin}: { pin: PinModel }) => {
             <Switch
                 edge="end"
                 onChange={toggleChecked}
-                checked={checked}
+                checked={high}
                 inputProps={{ 'aria-labelledby': 'switch-list-label-wifi' }}
             />
         </ListItemSecondaryAction>

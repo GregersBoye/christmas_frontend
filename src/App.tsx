@@ -1,39 +1,36 @@
 import React, {useEffect, useState} from "react";
 import Container from '@material-ui/core/Container'
 import PinList from './components/pinList';
-import PinModel from "./models/pinModel";
+
 const App = () => {
-  const [pinStates, setPinStates] = useState([]);
+    const [allowedStates, setAllowedStates] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+    useEffect(() => {
+        const loadData = async () => {
+            setLoading(true);
+            const response = await fetch('http://raspberrypi.local:1224/getModes')
+            const jsonResponse = await response.json();
+            setAllowedStates(jsonResponse);
+            setLoading(false);
+        }
+        loadData();
+        }, []);
+    return (
+        <div className="App">
+            <header>
+                <h1>Christmas-light controller</h1>
+            </header>
+            <section>
+                <Container maxWidth="sm">
 
-  }, [pinStates])
+                    {!loading && <PinList ></PinList>}
+                    {loading && <h1>Loading</h1>}
+                </Container>
+            </section>
 
-  useEffect(() => {
-    fetch('http://192.168.1.22:1224/state')
-      .then(response => response.json())
-      .then((data) => {
-          const newData = data.map((dataPoint: {HIGH: string; pinNo: number, name: string}) => new PinModel(dataPoint));
-          setPinStates(newData)
-      });
-  }, [])
-
-
-  return (
-    <div className="App">
-      <header >
-        <h1>Christmas-light controller</h1>
-      </header>
-
-      <section>
-        <Container maxWidth="sm">
-           <PinList pins={pinStates} onChange={setPinStates}></PinList>
-
-        </Container>
-      </section>
-
-    </div>
-  );
+        </div>
+    );
 }
 
 export default App;
